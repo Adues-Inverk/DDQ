@@ -16,7 +16,7 @@ class InformAgent(Agent):
 
         self.state['turn'] += 2
         if self.current_slot_id < len(self.slot_set.keys()):
-            slot = self.slot_set.keys()[self.current_slot_id]
+            slot = list(self.slot_set.keys())[self.current_slot_id]
             self.current_slot_id += 1
 
             act_slot_response = {}
@@ -98,7 +98,7 @@ class EchoAgent(Agent):
         # if so, inform it
         ########################################################################
         if user_action['diaact'] == 'request':
-            requested_slot = user_action['request_slots'].keys()[0]
+            requested_slot = list(user_action['request_slots'].keys())[0]
 
             act_slot_response['diaact'] = "inform"
             act_slot_response['inform_slots'][requested_slot] = "PLACEHOLDER"

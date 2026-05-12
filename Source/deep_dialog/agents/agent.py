@@ -23,6 +23,8 @@ class Agent:
         return {"act_slot_response": act_slot_response, "act_slot_value_response": act_slot_value_response}
     def register_experience_replay_tuple(self, s_t, a_t, reward, s_tplus1, episode_over):
         pass
+    def set_user_planning(self, user_planning):
+        pass
     def set_nlg_model(self, nlg_model):
         self.nlg_model = nlg_model
     def set_nlu_model(self, nlu_model):

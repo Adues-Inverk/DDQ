@@ -46,7 +46,7 @@ class nlg:
         # remove I do not care slot in task(complete)
         if dia_act['diaact'] == 'inform' and 'taskcomplete' in dia_act['inform_slots'].keys() and \
                 dia_act['inform_slots']['taskcomplete'] != dialog_config.NO_VALUE_MATCH:
-            inform_slot_set = dia_act['inform_slots'].keys()
+            inform_slot_set = list(dia_act['inform_slots'].keys())
             for slot in inform_slot_set:
                 if dia_act['inform_slots'][slot] == dialog_config.I_DO_NOT_CARE: del dia_act['inform_slots'][slot]
 
@@ -125,8 +125,8 @@ class nlg:
 
     def load_nlg_model(self, model_path):
         """ load the trained NLG model """
-
-        model_params = pickle.load(open(model_path))
+        # Open this printed path in a text editor and see what text is inside!
+        model_params = pickle.load(open(model_path, 'rb'), encoding='latin1')
 
         hidden_size = model_params['model']['Wd'].shape[0]
         output_size = model_params['model']['Wd'].shape[1]
@@ -172,12 +172,7 @@ class nlg:
     def load_predefine_act_nl_pairs(self, path):
         """ Load some pre-defined Dia_Act&NL Pairs from file """
 
-        self.diaact_nl_pairs = json.load(open(path, 'rb'))
-
-        for key in self.diaact_nl_pairs['dia_acts'].keys():
-            for ele in self.diaact_nl_pairs['dia_acts'][key]:
-                ele['nl']['usr'] = ele['nl']['usr'].encode('utf-8')  # encode issue
-                ele['nl']['agt'] = ele['nl']['agt'].encode('utf-8')  # encode issue
+        self.diaact_nl_pairs = json.load(open(path, 'r', encoding='utf-8'))
 
 
 def main(params):
